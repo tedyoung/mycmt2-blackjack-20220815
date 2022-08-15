@@ -4,6 +4,7 @@ import java.util.stream.Collectors;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
+// Transform/Translate/Convert from DOMAIN to CONSOLE
 public class ConsoleHand {
     // Translate DOMAIN OBJECT (Hand) --> Some String for display purposes
     static String displayFaceUpCard(Hand hand) {

@@ -40,10 +40,6 @@ public class Hand {
         return value() <= 16;
     }
 
-    void display() {
-        System.out.println(ConsoleHand.cardsAsString(this));
-    }
-
     // can't return direct access to internal field (cards)
     // Options:
     // 1) Return copy -- implies a regular List
