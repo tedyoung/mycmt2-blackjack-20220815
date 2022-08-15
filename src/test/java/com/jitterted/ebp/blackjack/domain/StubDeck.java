@@ -23,6 +23,12 @@ public class StubDeck extends Deck {
         return deck;
     }
 
+    static Deck playerStandsAndBeatsDealer() {
+        Deck playerStandsAndBeatsDealer = new StubDeck(Rank.TEN, Rank.EIGHT,
+                                                       Rank.QUEEN, Rank.JACK);
+        return playerStandsAndBeatsDealer;
+    }
+
     @Override
     public Card draw() {
         return iterator.next();
