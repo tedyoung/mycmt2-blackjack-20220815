@@ -1,10 +1,5 @@
 package com.jitterted.ebp.blackjack.domain;
 
-import com.jitterted.ebp.blackjack.adapter.in.console.ConsoleCard;
-import com.jitterted.ebp.blackjack.adapter.in.console.ConsoleHand;
-
-import static org.fusesource.jansi.Ansi.ansi;
-
 public class Game {
 
     private final Deck deck;
@@ -52,32 +47,28 @@ public class Game {
         }
     }
 
-    public void displayGameState() {
-        System.out.print(ansi().eraseScreen().cursor(1, 1));
-        System.out.println("Dealer has: ");
-        System.out.println(ConsoleHand.displayFaceUpCard(dealerHand));
 
-        // second card is the hole card, which is hidden, or "face down"
-        ConsoleCard.displayBackOfCard();
-
-        System.out.println();
-        System.out.println("Player has: ");
-        System.out.println(ConsoleHand.cardsAsString(playerHand));
-        System.out.println(" (" + playerHand.value() + ")");
+    public Hand playerHand() {
+        return playerHand;
     }
 
-    public void displayFinalGameState() {
-        System.out.print(ansi().eraseScreen().cursor(1, 1));
-        System.out.println("Dealer has: ");
-        System.out.println(ConsoleHand.cardsAsString(dealerHand));
-        System.out.println(" (" + dealerHand.value() + ")");
-
-        System.out.println();
-        System.out.println("Player has: ");
-        System.out.println(ConsoleHand.cardsAsString(playerHand));
-        System.out.println(" (" + playerHand.value() + ")");
+    // QUERY METHOD
+    // -> Snapshot (point-in-time fixed)
+    // -> Integrity (don't provide reference to internal field)
+    // -> Immutable (snapshot, shouldn't be modified)
+    //
+    // OPTIONS
+    // =NO=  1. clone - returns Hand -> misleading to clients, think they have the "real" Hand
+    //          How to do this? How deep do we need to clone?
+    // =NO=  2a. return DTO [ADAPTER ONLY] - returns HandDto -> getValue(), getCards(), isBusted()
+    //
+    // =YES= 2b. return Value Object [DOMAIN ONLY] - HandView -> value(), cards(), faceUpCard()
+    //
+    // =NO=  3. interface - ReadOnlyHand (QUERIES only) vs. DrawableHand (COMMANDS & QUERIES)
+    //      not really immutable
+    public Hand dealerHand() {
+        return dealerHand;
     }
-
 
 
     public boolean isPlayerDone() {
