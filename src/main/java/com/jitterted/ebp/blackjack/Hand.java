@@ -6,11 +6,11 @@ import java.util.List;
 public class Hand {
     private final List<Card> cards = new ArrayList<>();
 
-    public Hand(List<Card> cards) {
-        this.cards.addAll(cards);
+    public Hand() {
     }
 
-    public Hand() {
+    public Hand(List<Card> cards) {
+        this.cards.addAll(cards);
     }
 
     public int value() {
@@ -64,7 +64,4 @@ public class Hand {
         return hand.value() < value();
     }
 
-    public boolean valueEquals(int target) {
-        return value() == target;
-    }
 }
