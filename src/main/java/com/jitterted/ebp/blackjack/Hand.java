@@ -2,9 +2,6 @@ package com.jitterted.ebp.blackjack;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.fusesource.jansi.Ansi.ansi;
 
 public class Hand {
     private final List<Card> cards = new ArrayList<>();
@@ -44,10 +41,15 @@ public class Hand {
     }
 
     void display() {
-        System.out.println(cards.stream()
-                                .map(ConsoleCard::display)
-                                .collect(Collectors.joining(
-                                        ansi().cursorUp(6).cursorRight(1).toString())));
+        System.out.println(ConsoleHand.cardsAsString(this));
+    }
+
+    // can't return direct access to internal field (cards)
+    // Options:
+    // 1) Return copy -- implies a regular List
+    // 2) Return Stream<Card> -- can only be "consumed" once
+    public List<Card> cards() {
+        return List.copyOf(cards);
     }
 
     public void drawFrom(Deck deck) {
