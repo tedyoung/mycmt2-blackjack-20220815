@@ -29,16 +29,32 @@ class GameOutcomeTest {
     }
 
     @Test
-    public void playerDealtBlackjackUponInitialDealThenWinsBlackjack() throws Exception {
-        Game game = new Game(new StubDeck(Rank.TEN, Rank.EIGHT,
-                                          Rank.ACE, Rank.JACK));
+    public void newGameThenPlayerIsNotDone() throws Exception {
+        Game game = new Game(StubDeck.playerNotDealtBlackjack());
+
+        assertThat(game.isPlayerDone())
+                .isFalse();
+    }
+
+    @Test
+    public void initialDealNoBlackjackDealtThenPlayerIsNotDone() throws Exception {
+        Game game = new Game(StubDeck.playerNotDealtBlackjack());
+
+        game.initialDeal();
+
+        assertThat(game.isPlayerDone())
+                .isFalse();
+    }
+
+    @Test
+    public void playerDealtBlackjackUponInitialDealThenWinsBlackjackAndIsDone() throws Exception {
+        Game game = new Game(StubDeck.playerDealtBlackjackDealerNotBlackjack());
 
         game.initialDeal();
 
         assertThat(game.determineOutcome())
                 .isEqualByComparingTo(GameOutcome.PLAYER_WINS_BLACKJACK);
     }
-
 
 
 }
