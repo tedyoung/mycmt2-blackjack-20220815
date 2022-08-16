@@ -96,6 +96,20 @@ class BlackjackControllerTest {
                 .isNotBlank();
     }
 
+    @Test
+    public void playerStandsResultsInRedirectToDonePageAndPlayerIsDone() throws Exception {
+        Game game = new Game(StubDeck.playerStandsAndBeatsDealer());
+        BlackjackController blackjackController = new BlackjackController(game);
+        blackjackController.startGame();
+
+        String redirectPage = blackjackController.standCommand();
+
+        assertThat(redirectPage)
+                .isEqualTo("redirect:/done");
+        assertThat(game.isPlayerDone())
+                .isTrue();
+    }
+
 
 
 }
