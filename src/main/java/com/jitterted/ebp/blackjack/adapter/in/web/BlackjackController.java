@@ -18,39 +18,48 @@ public class BlackjackController {
         this.game = game;
     }
 
+    @GetMapping("/game")
+    public String gameView(Model model) {
+        addGameViewTo(model);
+        return "blackjack";
+    }
+
+    @GetMapping("/done")
+    public String doneView(Model model) {
+        addGameViewTo(model);
+        model.addAttribute("outcome", game.determineOutcome().display());
+        return "done";
+    }
+
     @PostMapping("/start-game")
     public String startGame() {
         game.initialDeal();
-        return "redirect:/game";
-    }
-
-    @GetMapping("/game")
-    public String gameView(Model model) {
-        model.addAttribute("gameView", GameView.of(game));
-        return "blackjack";
+        return redirectBasedOnGameState();
     }
 
     @PostMapping("/hit")
     public String hitCommand() {
         game.playerHits();
-        if (game.isPlayerDone()) {
-            return "redirect:/done";
-        }
-        return "redirect:/game";
-    }
-
-    @GetMapping("/done")
-    public String doneView(Model model) {
-        model.addAttribute("gameView", GameView.of(game));
-        model.addAttribute("outcome", game.determineOutcome().display());
-        return "done";
+        return redirectBasedOnGameState();
     }
 
     @PostMapping("/stand")
     public String standCommand() {
         game.playerStands();
         game.dealerTurn();
-        return "redirect:/done";
+        return redirectBasedOnGameState();
+    }
+
+    // TRANSFORM GAME STATE into a REDIRECT
+    private String redirectBasedOnGameState() {
+        if (game.isPlayerDone()) {
+            return "redirect:/done";
+        }
+        return "redirect:/game";
+    }
+
+    private void addGameViewTo(Model model) {
+        model.addAttribute("gameView", GameView.of(game));
     }
 
 

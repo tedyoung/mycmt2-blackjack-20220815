@@ -112,11 +112,7 @@ class BlackjackControllerTest {
 
     @Test
     public void standResultsInDealerDrawingCardOnTheirTurn() throws Exception {
-        Deck dealerBeatsPlayerAfterDrawingAdditionalCardDeck =
-                new StubDeck(Rank.TEN,  Rank.QUEEN,
-                             Rank.NINE, Rank.FIVE,
-                                        Rank.SIX);
-        Game game = new Game(dealerBeatsPlayerAfterDrawingAdditionalCardDeck);
+        Game game = new Game(StubDeck.dealerDrawsAdditionalCardAfterPlayerStands());
         BlackjackController blackjackController = new BlackjackController(game);
         blackjackController.startGame();
 
@@ -125,7 +121,6 @@ class BlackjackControllerTest {
         assertThat(game.dealerHand().cards())
                 .hasSize(3);
     }
-
 
 
 }
