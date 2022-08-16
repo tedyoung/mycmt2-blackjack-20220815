@@ -58,5 +58,17 @@ class GameOutcomeTest {
                 .isTrue();
     }
 
+    @Test
+    public void standResultsInDealerDrawingCardOnTheirTurn() throws Exception {
+        Game game = new Game(StubDeck.dealerDrawsAdditionalCardAfterPlayerStands());
+        game.initialDeal();
+
+        game.playerStands();
+
+        assertThat(game.dealerHand().cards())
+                .hasSize(3);
+    }
+
+
 
 }
