@@ -20,25 +20,29 @@ public class StubDeck extends Deck {
         this.iterator = cards.listIterator();
     }
 
-    static Deck playerHitsAndGoesBust() {
-        Deck deck = new StubDeck(Rank.TEN,   Rank.EIGHT,
-                                 Rank.QUEEN, Rank.JACK,
-                                 Rank.THREE);
-        return deck;
+    public static Deck playerHitsAndDoesNotGoBust() {
+        return new StubDeck(Rank.TEN, Rank.EIGHT,
+                            Rank.SEVEN, Rank.JACK,
+                            Rank.THREE);
     }
 
-    static Deck playerStandsAndBeatsDealer() {
-        Deck playerStandsAndBeatsDealer = new StubDeck(Rank.TEN, Rank.EIGHT,
-                                                       Rank.QUEEN, Rank.JACK);
-        return playerStandsAndBeatsDealer;
+    public static Deck playerHitsAndGoesBust() {
+        return new StubDeck(Rank.TEN, Rank.EIGHT,
+                            Rank.QUEEN, Rank.JACK,
+                            Rank.THREE);
     }
 
-    static Deck playerNotDealtBlackjack() {
+    public static Deck playerStandsAndBeatsDealer() {
+        return new StubDeck(Rank.TEN, Rank.EIGHT,
+                            Rank.QUEEN, Rank.JACK);
+    }
+
+    public static Deck playerNotDealtBlackjack() {
         return new StubDeck(Rank.TEN, Rank.EIGHT,
                             Rank.NINE, Rank.JACK);
     }
 
-    static Deck playerDealtBlackjackDealerNotBlackjack() {
+    public static Deck playerDealtBlackjackDealerNotBlackjack() {
         return new StubDeck(Rank.TEN, Rank.EIGHT,
                             Rank.ACE, Rank.JACK);
     }
