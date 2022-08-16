@@ -85,24 +85,24 @@ public class Game {
     public void initialDeal() {
         dealRoundOfCards();
         dealRoundOfCards();
-        playerDone = playerHand.isBlackjack();
-        if (playerDone) {
-            gameMonitor.roundCompleted(this);
-        }
+        updatePlayerDoneTo(playerHand.isBlackjack());
     }
 
     public void playerHits() {
         playerHand.drawFrom(deck);
-        playerDone = playerHand.isBusted();
-        if (playerDone) {
-            gameMonitor.roundCompleted(this);
-        }
+        updatePlayerDoneTo(playerHand.isBusted());
     }
 
     public void playerStands() {
-        playerDone = true;
         dealerTurn();
-        gameMonitor.roundCompleted(this);
+        updatePlayerDoneTo(true);
+    }
+
+    private void updatePlayerDoneTo(boolean isPlayerDone) {
+        playerDone = isPlayerDone;
+        if (playerDone) {
+            gameMonitor.roundCompleted(this);
+        }
     }
 
 }
