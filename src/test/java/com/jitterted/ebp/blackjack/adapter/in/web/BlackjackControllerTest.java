@@ -110,17 +110,5 @@ class BlackjackControllerTest {
                 .isTrue();
     }
 
-    @Test
-    public void standResultsInDealerDrawingCardOnTheirTurn() throws Exception {
-        Game game = new Game(StubDeck.dealerDrawsAdditionalCardAfterPlayerStands());
-        BlackjackController blackjackController = new BlackjackController(game);
-        blackjackController.startGame();
-
-        blackjackController.standCommand();
-
-        assertThat(game.dealerHand().cards())
-                .hasSize(3);
-    }
-
 
 }
