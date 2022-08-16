@@ -8,6 +8,10 @@ public class StubDeck extends Deck {
     private static final Suit DUMMY_SUIT = Suit.HEARTS;
     private final ListIterator<Card> iterator;
 
+    public StubDeck(List<Card> cards) {
+        this.iterator = cards.listIterator();
+    }
+
     public StubDeck(Rank... ranks) {
         List<Card> cards = new ArrayList<>();
         for (Rank rank : ranks) {
