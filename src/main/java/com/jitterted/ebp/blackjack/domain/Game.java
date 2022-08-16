@@ -22,12 +22,6 @@ public class Game {
         this.gameMonitor = gameMonitor;
     }
 
-    public void initialDeal() {
-        dealRoundOfCards();
-        dealRoundOfCards();
-        playerDone = playerHand.isBlackjack();
-    }
-
     private void dealRoundOfCards() {
         // why: players first because this is the rule
         playerHand.drawFrom(deck);
@@ -86,6 +80,15 @@ public class Game {
 
     public boolean isPlayerDone() {
         return playerDone;
+    }
+
+    public void initialDeal() {
+        dealRoundOfCards();
+        dealRoundOfCards();
+        playerDone = playerHand.isBlackjack();
+        if (playerDone) {
+            gameMonitor.roundCompleted(this);
+        }
     }
 
     public void playerHits() {
