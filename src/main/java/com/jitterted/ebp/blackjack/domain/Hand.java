@@ -49,6 +49,7 @@ public class Hand {
     }
 
     public void drawFrom(Deck deck) {
+        // Invariant: not allowed if Hand is in a "terminal" state: busted or has Blackjack
         cards.add(deck.draw());
     }
 
